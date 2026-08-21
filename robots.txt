@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# 绑定自己的域名之后，把下面这行的地址换成真实域名并取消注释
-# Sitemap: https://example.com/sitemap.xml
+Sitemap: https://interviewcut.com/sitemap.xml
