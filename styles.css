@@ -622,17 +622,8 @@ h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #F4F2F7; }
 .ring-list li.hot::before { color: var(--accent-text); }
 .ring-list li b { color: var(--accent-text); font-size: 12px; border: 1px solid #3A2B54; border-radius: 5px; padding: 0 6px; background: var(--accent-soft); }
 
-/* ── 门禁 ─────────────────────────────────────────────────────────── */
-.gates { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; margin-bottom: 44px; }
-.gate {
-  display: flex; align-items: baseline; gap: 14px; padding: 15px 18px;
-  background: var(--bg2); border: 1px solid var(--border); border-radius: 11px;
-  border-left: 3px solid var(--good); font-size: 14.5px; color: var(--dim);
-}
-.gate code { color: var(--good-text); font-size: 13px; white-space: nowrap; }
-
+/* ── 隐私 ─────────────────────────────────────────────────────────── */
 .privacy { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 30px 32px; }
-.privacy h3 { font-size: 20px; margin-bottom: 16px; }
 .privacy ol { padding-left: 22px; display: flex; flex-direction: column; gap: 12px; color: var(--dim); margin-bottom: 18px; }
 .privacy li::marker { color: var(--accent-text); font-weight: 700; }
 
