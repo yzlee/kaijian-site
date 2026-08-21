@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>开剪 · 专为访谈视频设计的 AI 剪辑台</title>
-<meta name="description" content="一场 40 分钟的访谈，剪成一条能被看完的片子。本地转写到词级时间戳，AI 逐句评级、抽钩子、按问答块排结构；导出按帧对齐，画面里永远有完整的人。">
+<title>开剪 · AI 读懂全片，直接生成爆款成片</title>
+<meta name="description" content="AI 爆款视频生成平台：全片分析、钩子筛选、内容重组、成片输出，一次完成。为访谈、播客、课程等长内容而生——AI 先理解视频，人只做高价值判断。">
 <meta name="theme-color" content="#0F0E13">
 <!-- 正式域名 2026-08-21 购入。GH Pages 备份地址上的这条 canonical 也指向它，
      避免 yzlee.github.io 被搜索引擎当成正主收录 -->
@@ -13,8 +13,8 @@
 <link rel="apple-touch-icon" href="./assets/app-icon.png">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="开剪 · 专为访谈视频设计的 AI 剪辑台">
-<meta property="og:description" content="转写到词级、逐句评级、钩子前置、问答块不拆散、帧对齐导出。视频不出你的硬盘。">
+<meta property="og:title" content="开剪 · AI 读懂全片，直接生成爆款成片">
+<meta property="og:description" content="全片分析 · 钩子筛选 · 内容重组 · 成片输出，一次完成。不是聊天框里的建议，而是可复核、可编辑、可继续精修的成片。">
 <!-- OG 抓取器不解析相对路径，必须绝对地址 -->
 <meta property="og:image" content="https://interviewcut.com/assets/og.png">
 <meta property="og:url" content="https://interviewcut.com/">
@@ -59,12 +59,12 @@
         <path d="M22 15 L49 31.5 L34.5 34.5 Z" fill="#fff"/>
         <path d="M22 49 L36.5 36.5 L49 33.2 Z" fill="#fff" opacity=".92"/>
       </svg>
-      <span class="brand-text"><b>开剪</b><i>访谈剪辑台</i></span>
+      <span class="brand-text"><b>开剪</b><i>AI 剪辑台</i></span>
     </a>
     <nav class="nav-links" aria-label="主导航">
       <a href="#why">为什么</a>
+      <a href="#hook-engine">钩子引擎</a>
       <a href="#features">能力</a>
-      <a href="#flow">工作流</a>
       <a href="#demo">演示</a>
       <a href="#trust">工程</a>
       <a href="#faq">问答</a>
@@ -80,14 +80,15 @@
 <!-- ═══════════════ HERO ═══════════════ -->
 <section class="hero">
   <div class="wrap">
-    <p class="eyebrow reveal"><span class="dot"></span>专为访谈视频设计，不是通用剪辑器</p>
+    <p class="eyebrow reveal"><span class="dot"></span>AI 爆款视频生成平台 · 为访谈、播客、课程、会议等长内容而生</p>
     <h1 class="reveal">
-      一场 40 分钟的访谈，<br>
-      剪成一条<span class="grad">能被看完</span>的片子
+      AI 读懂全片，抓住爆点，<br>
+      直接生成<span class="grad">爆款成片</span>
     </h1>
     <p class="lede reveal">
-      本地转写到<b>词级时间戳</b>，AI 逐句评级、抽钩子、按<b>问答块</b>排结构，你只做拍板。
-      导出按帧对齐，画面里永远有一个完整的人。
+      <b>全片分析 · 钩子筛选 · 内容重组 · 成片输出，一次完成。</b>
+      一场 40 分钟的访谈，AI 先建立内容地图、把钩子排到最前，
+      交给你的不是建议，而是一条<b>可播放、可精修</b>的完整成片。
     </p>
     <div class="cta reveal">
       <a class="btn btn-primary js-download" href="#download">
@@ -158,7 +159,7 @@
           <div class="pane pane-ai">
             <div class="pane-head">AI 面板</div>
             <div class="ai-card">
-              <div class="ai-line"><b>钩子池</b><em>已确认 3 / 12 组</em></div>
+              <div class="ai-line"><b>钩子池</b><em>已确认 3 / 8 组</em></div>
               <div class="bar"><i style="width:62%"></i></div>
             </div>
             <div class="hook" data-k="viral"><span class="tag t-viral">可能爆</span>「我这个月是上个月的两倍」<em>信息缺口 7 · 自足 9</em></div>
@@ -179,94 +180,140 @@
 <!-- ═══════════════ 为什么 ═══════════════ -->
 <section class="band" id="why">
   <div class="wrap">
-    <h2 class="reveal">通用剪辑软件不是不好，<span class="grad">是它不认识访谈</span></h2>
-    <p class="sub reveal">同样的三件事，剪映、Premiere 交给你的眼睛和耳朵；这里交给可计算的判据。</p>
-    <div class="vs">
-      <article class="vs-row reveal">
-        <div class="vs-a"><span class="vs-k">通用剪辑器</span><p>给你一条 40 分钟的波形，从哪儿下刀全靠你反复拉。</p></div>
-        <div class="vs-arrow" aria-hidden="true">→</div>
-        <div class="vs-b"><span class="vs-k">开剪</span><p>转写切成<b>问答块</b>——主持人的问句串 + 嘉宾的连续回答＝一块。压时长时<b>删整块</b>，不会剪出答非所问。</p></div>
-      </article>
-      <article class="vs-row reveal">
-        <div class="vs-a"><span class="vs-k">通用剪辑器</span><p>它不知道哪一句有人想看，你只能自己听三遍。</p></div>
-        <div class="vs-arrow" aria-hidden="true">→</div>
-        <div class="vs-b"><span class="vs-k">开剪</span><p>每句一个评级 <span class="tag t-viral">可能爆</span> <span class="tag t-good">有意思</span> <span class="tag t-mid">一般</span> <span class="tag t-dim">无聊</span>，外加一句理由：哪一维拉高、哪一维拖后腿。分数只用来排序，<b>不替你判决</b>。</p></div>
-      </article>
-      <article class="vs-row reveal">
-        <div class="vs-a"><span class="vs-k">通用剪辑器</span><p>竖屏裁剪靠肉眼盯，一不留神导出一片没有头顶的脸。</p></div>
-        <div class="vs-arrow" aria-hidden="true">→</div>
-        <div class="vs-b"><span class="vs-k">开剪</span><p>竖屏默认<b>头部安全</b>顶部对齐，预览与导出同一套公式；导出前还有一道硬校验，构图违规<b>直接拦下不给导</b>。</p></div>
-      </article>
+    <h2 class="reveal">视频越长，真正耗时的不是剪，<span class="grad">是先看完、再判断</span></h2>
+    <p class="sub reveal">面对访谈、播客、课程这样的长内容，传统流程把人钉在「看完再说」里。开剪把理解、筛选和首版编排前置给 AI，人只做高价值判断。</p>
+
+    <div class="lanes">
+      <div class="lane lane-old reveal">
+        <h3>传统剪辑<em>人先理解，再开始剪</em></h3>
+        <ol>
+          <li>完整观看素材</li>
+          <li>手工记录关键段落</li>
+          <li>来回定位原片</li>
+          <li>试剪多个开场</li>
+          <li>从空白时间线开始编排</li>
+        </ol>
+        <p class="lane-note">时间花在重复的观看、记录、定位和试剪上</p>
+      </div>
+      <div class="lane lane-new reveal">
+        <h3>开剪 AI 工作流<em>AI 先理解，人做判断</em></h3>
+        <ol>
+          <li>AI 解析全片，建立内容地图</li>
+          <li>识别人物、观点、冲突与转折</li>
+          <li>钩子评分排序，候选摆到面前</li>
+          <li>自动编排出可播放的首版成片</li>
+          <li>人工审核、精修、发布</li>
+        </ol>
+        <p class="lane-note">人被直接带到最值得判断的部分</p>
+      </div>
+    </div>
+
+    <div class="map reveal">
+      <div class="map-head">
+        <h3>短时间内，整条视频变成一张可执行的内容地图</h3>
+        <p>人物与主题关系 · 观点、冲突与转折 · 信息密度与高能片段 · 钩子候选与叙事结构</p>
+      </div>
+      <div class="funnel" role="img" aria-label="一次实测：589 句语义解析，筛出 47 条钩子候选，组成 12 组内容方案">
+        <div class="fstage"><i style="--w:100%"></i><b>589 句</b><span>语义解析</span></div>
+        <div class="fstage"><i style="--w:46%"></i><b>47 条</b><span>钩子候选</span></div>
+        <div class="fstage"><i style="--w:20%"></i><b>12 组</b><span>内容方案</span></div>
+      </div>
+      <p class="note">一次实测样本，结果随素材变化。一次生成分析，不再依靠人工反复回看。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 钩子引擎 ═══════════════ -->
+<section class="band band-alt" id="hook-engine">
+  <div class="wrap">
+    <h2 class="reveal">钩子不是随机生成，<span class="grad">是闯过了四层判断</span></h2>
+    <p class="sub reveal">开头三秒决定留存。每条钩子候选都要过完这四关，才会出现在你面前。</p>
+    <div class="layers">
+      <div class="layer reveal"><span class="ln">01</span><h3>高传播特征学习</h3><p>从你投喂的对标样片里持续学习高传播内容的开场模式与表达特征——学方法，不搬文案。</p></div>
+      <div class="layer reveal"><span class="ln">02</span><h3>原片语境校验</h3><p>钩子必须能被后文兑现，不断章取义——开头写的支票，正片必须认账。</p></div>
+      <div class="layer reveal"><span class="ln">03</span><h3>多维评分排序</h3><p>信息缺口、自足性、反差、前置度逐维打分并给出理由；分数只用来排序，不替你判决。</p></div>
+      <div class="layer reveal"><span class="ln">04</span><h3>反馈权重更新</h3><p>你的接受、拒绝、改写与排序都沉淀成规则，规则要连续两期被印证才生效——越剪越准。</p></div>
+    </div>
+
+    <h3 class="mid-title reveal">同一条素材，AI 生成<span class="grad">多个可比较的开场版本</span></h3>
+    <p class="sub reveal">不是只换标题——每个版本都带着钩子原句、原片时间码、支撑片段、回扣段落和一条可播放成片。</p>
+    <div class="versions">
+      <div class="version reveal"><span class="vk">冲突型开场</span><p>先抛出分歧或矛盾，快速建立张力</p><em>「这件事情，我一开始就觉得是不存在的」</em></div>
+      <div class="version reveal"><span class="vk">结果型开场</span><p>先给结论或收益，让价值立即可见</p><em>「我这个月的收入是上个月的两倍」</em></div>
+      <div class="version reveal"><span class="vk">反常识开场</span><p>先打破惯性认知，制造继续观看的理由</p><em>「只要做就火，别等准备好」</em></div>
+      <div class="version reveal"><span class="vk">问题型开场</span><p>先提出目标受众真正关心的问题</p><em>「一个人做公司，第一年怎么活下来？」</em></div>
     </div>
   </div>
 </section>
 
 <!-- ═══════════════ 能力 ═══════════════ -->
-<section class="band band-alt" id="features">
+<section class="band" id="features">
   <div class="wrap">
-    <h2 class="reveal">从素材到成片，<span class="grad">每一步都为访谈重做过</span></h2>
+    <h2 class="reveal">一套 AI 原生剪辑系统，<span class="grad">覆盖从理解到成片的关键链路</span></h2>
+    <p class="sub reveal">六项能力共享同一份全片理解结果，不是彼此割裂的功能插件。AI 生成分析 → AI 生成决策 → AI 直接生成成片；人负责最终审美和发布判断。</p>
     <div class="grid" id="featGrid">
       <article class="card reveal">
-        <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mic"/></svg></span>
-        <h3>本地转写 · 词级时间戳</h3>
-        <p>faster-whisper 跑在你自己的机器上，默认 large-v3；有 NVIDIA 显卡自动走 GPU。词级时间戳意味着<b>一句话可以只留半句</b>。</p>
-      </article>
-      <article class="card reveal">
         <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-rate"/></svg></span>
-        <h3>逐句评级 + 理由</h3>
-        <p>四档评级配一句人话说明，可按档筛选。理由是确定性生成的，不是模型随口一说。</p>
+        <h3>全片语义分析</h3>
+        <p>人物 / 主题 / 观点 / 冲突 / 转折 / 信息密度。逐句评级 <span class="tag t-viral">可能爆</span> <span class="tag t-good">有意思</span> 配一句人话理由——理由是确定性生成的，不是模型随口一说。</p>
       </article>
       <article class="card reveal">
         <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-hook"/></svg></span>
-        <h3>钩子按组确认</h3>
-        <p>一个钩子＝主句 + 垫话 + 后续句，整组一起确认。你确认的钩子排在成片最前，正片里还可以再出现一次做回扣。</p>
+        <h3>爆款钩子引擎</h3>
+        <p>高传播特征 + 原片语境兑现 + 多维评分。钩子按组确认：主句、垫话、后续句整组一起走，确认的排最前，正片里还能回扣一次。</p>
       </article>
       <article class="card reveal">
         <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-block"/></svg></span>
-        <h3>问答块是最小单位</h3>
-        <p>结构先于价值：先切出「问 + 答」，再决定哪些块进片。段内守逻辑，段间抢留存。</p>
-      </article>
-      <article class="card reveal">
-        <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-scissors"/></svg></span>
-        <h3>语气词自动掐掉</h3>
-        <p>嗯 / 啊 / 呃 自动标上删除线。切缝只吃静音不吃字，接缝处 20ms 淡入淡出防爆音。</p>
-      </article>
-      <article class="card reveal">
-        <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-face"/></svg></span>
-        <h3>访谈构图硬约束</h3>
-        <p>每个画面必须有人物，头部不能被大面积裁掉。16:9 / 9:16 / 1:1 之间换比例时自动顶部对齐，导出前硬校验。</p>
+        <h3>内容方案生成</h3>
+        <p>多个选题角度与开场版本，各带结构、支撑片段与高能段落。回答的不只是「剪什么」，还有<b>为什么这样剪</b>。</p>
       </article>
       <article class="card reveal">
         <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-film"/></svg></span>
-        <h3>帧对齐导出</h3>
-        <p>每段吸到帧格，音视频同一时长，字幕与音乐跟着重映射。<b>默认原色原声直通</b>——不替你调色、不替你美化人声。</p>
+        <h3>自动成片编排</h3>
+        <p>语义切段 / 片段筛选 / 顺序重排 / 切点生成，直接落成带字幕的完整时间线。访谈按<b>问答块</b>吸附，不会剪出答非所问。</p>
       </article>
       <article class="card reveal">
         <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cc"/></svg></span>
-        <h3>字幕四个入口都能改</h3>
-        <p>转写稿里改、时间线字幕轨上改、整句纠正、半句覆盖——粗剪之后照样改得动。</p>
+        <h3>字幕与时间线联动</h3>
+        <p>词级时间码转写（一句话可只留半句）、语义级校对、嗯啊呃口语一键清理；改字幕同步作用于片段，音画不错位。</p>
       </article>
       <article class="card reveal">
         <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trend"/></svg></span>
-        <h3>越剪越准</h3>
-        <p>你每一次「留这句、删那句」都进口味档案，下一期作为方法层规则注入 AI 的判断。规则要连续两期被印证才生效，失效自动降级。</p>
-      </article>
-      <article class="card reveal">
-        <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-doc"/></svg></span>
-        <h3>中文剪辑执行稿</h3>
-        <p>导出一份 PDF：每句带时间码和说话人，附标题建议与关键词。交给助理也能照着剪。</p>
-      </article>
-      <article class="card reveal">
-        <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-people"/></svg></span>
-        <h3>说话人分离与人工终审</h3>
-        <p>主持人 / 嘉宾自动区分，现场第三人也认得出。你手动改过的标注是终审，重新分析不会被模型改回去。</p>
-      </article>
-      <article class="card reveal">
-        <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-clap"/></svg></span>
-        <h3>对标样片可以学</h3>
-        <p>拖进来一条你想学的片子，它会拆出切换节奏、每句时长、响度基线，作为方法注入下一次分析。</p>
+        <h3>偏好学习与把关</h3>
+        <p>接受、拒绝、改写、排序都进反馈闭环：规则连续两期被印证才生效，口味档案带版本戳、可退回上一版；每个 AI 决策都可预览、移动、删除。</p>
       </article>
     </div>
+
+    <div class="craft reveal">
+      <h3>藏在底下的工程细节</h3>
+      <ul class="craft-list">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-face"/></svg>头部安全构图硬校验，违规直接不给导出</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-scissors"/></svg>切缝只吃静音不吃字，20ms 淡入出防爆音</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-film"/></svg>帧对齐导出，默认原色原声直通不加戏</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-people"/></svg>说话人自动分离，人工标注即终审</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-doc"/></svg>中文剪辑执行稿 PDF，每句带时间码</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-clap"/></svg>拖入对标样片，学切换节奏与句长基线</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 对比 ═══════════════ -->
+<section class="band band-alt" id="compare">
+  <div class="wrap">
+    <h2 class="reveal">多数工具帮你剪，<span class="grad">开剪先替你做内容判断</span></h2>
+    <p class="sub reveal">差异不在按钮多少，而在 AI 能不能理解全片、说明依据、生成可执行结果。</p>
+    <div class="cmp reveal">
+      <div class="cmp-row cmp-head">
+        <div>能力维度</div><div>传统剪辑软件</div><div>常见 AI 剪辑工具</div><div class="cmp-us">开剪</div>
+      </div>
+      <div class="cmp-row"><div>全片理解</div><div>依赖人工观看</div><div>转写或单点总结</div><div class="cmp-us">人物、主题、观点、转折、信息密度</div></div>
+      <div class="cmp-row"><div>钩子筛选</div><div>依赖个人经验</div><div>生成标题或片段</div><div class="cmp-us">高传播特征＋原片语境＋多维评分</div></div>
+      <div class="cmp-row"><div>输出结果</div><div>从空白时间线开始</div><div>文案或模板化结果</div><div class="cmp-us">带切点、顺序、字幕的完整成片</div></div>
+      <div class="cmp-row"><div>学习方式</div><div>不沉淀内容偏好</div><div>固定模板或单次指令</div><div class="cmp-us">接受 / 拒绝 / 改写 / 排序的反馈闭环</div></div>
+      <div class="cmp-row"><div>编辑控制</div><div>全程手工</div><div>结果后二次调整</div><div class="cmp-us">候选可试听、排序、换选并继续精修</div></div>
+    </div>
+    <p class="cmp-moat reveal">全片语义理解 × 钩子评分机制 × 成片编排引擎 × 偏好学习闭环</p>
   </div>
 </section>
 
@@ -276,9 +323,9 @@
     <h2 class="reveal">五步，<span class="grad">你只在第 4 步做决定</span></h2>
     <ol class="steps">
       <li class="reveal"><span class="n">1</span><h3>导入素材</h3><p>多机位一起拖进来。相机的 LRV 低清代理自动识别用于预览，不用转码；HEVC 播不动会提示一键生成 540p 代理。</p></li>
-      <li class="reveal"><span class="n">2</span><h3>本地转写</h3><p>句级 + 词级时间戳落盘，说话人分离，语气词标记。这一步不联网。</p></li>
-      <li class="reveal"><span class="n">3</span><h3>AI 通读全文</h3><p>逐句评级、抽钩子候选、拟标题、排出问答块骨架，并写清剪辑思路。断点可续跑。</p></li>
-      <li class="reveal"><span class="n">4</span><h3>拍板与对话调整</h3><p>确认钩子组、勾选句子；右侧直接说「再紧凑 20 秒」「把讲定价的部分加进来」，时间线实时改。</p></li>
+      <li class="reveal"><span class="n">2</span><h3>转写（默认本地）</h3><p>句级 + 词级时间戳落盘，说话人分离，语气词标记。默认本地跑、不联网；选云端转写时只上传音频（不上传视频），随时可切回。</p></li>
+      <li class="reveal"><span class="n">3</span><h3>AI 建立内容地图</h3><p>逐句评级、人物与观点、冲突与转折、钩子候选与结构方案，并写清为什么这样剪。断点可续跑。</p></li>
+      <li class="reveal"><span class="n">4</span><h3>拍板与对话调整</h3><p>确认钩子组、比较开场版本；右侧直接说「再紧凑 20 秒」「把讲定价的部分加进来」，时间线实时改。</p></li>
       <li class="reveal"><span class="n">5</span><h3>导出成片</h3><p>从原片按帧精确切割拼接，可选 9:16 竖版。同时导出剪辑执行稿 PDF 与字幕。</p></li>
     </ol>
   </div>
@@ -380,7 +427,7 @@
       <div class="dl-main">
         <p class="eyebrow"><span class="dot"></span><span id="dlChannel">内测版 v0.1.0</span></p>
         <h2>装上，把这一期先剪出来</h2>
-        <p class="lede">安装包 <b id="dlSize">约 90 MB</b>。转写引擎二选一：<b>云端转写</b>填个 API Key 就能开剪（只再下约 80 MB）；<b>本地转写</b>下载引擎与模型（约 2–3 GB），音频一个字节不出机器。装完随时可切换。</p>
+        <p class="lede">安装包 <b id="dlSize">约 90 MB</b>。转写引擎二选一：<b>云端转写</b>填个 API Key 就能开剪（只再下约 80 MB）；<b>本地转写</b>下载引擎与模型（<span id="dlRuntime">约 2–3 GB</span>），音频一个字节不出机器。装完随时可切换。</p>
         <div class="cta">
           <a class="btn btn-primary btn-lg js-download" href="#">
             <svg viewBox="0 0 16 16" class="ico" aria-hidden="true"><path d="M8 1v9m0 0 3.4-3.4M8 10 4.6 6.6M2 12.5v1A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5v-1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -426,7 +473,7 @@
       <details class="reveal"><summary>我的访谈内容会被拿去训练吗？</summary>
         <p>视频不出你的硬盘。文字转写发给的是你自己配置的模型服务商，是否用于训练取决于你和他们的协议（Claude、OpenAI 的 API 通道默认都不拿来训练）。这一层的选择权在你手上。</p></details>
       <details class="reveal"><summary>支持多长的素材？</summary>
-        <p>按小时级的访谈设计。举个有前提的数字：一期 43 分钟的访谈转写出 1217 句、约 1 万字，逐句都能点选。</p></details>
+        <p>按小时级的长内容设计（访谈、播客、课程、会议）。举个有前提的数字：一期 43 分钟的访谈转写出 1217 句、约 1 万字，逐句都能点选。</p></details>
       <details class="reveal"><summary>转写要等多久？</summary>
         <p>另一条 22.6 分钟的素材在带 GPU 的机器上跑了 136 秒，约 10 倍实时。这两个数字来自不同素材、不同机器，别当成同一场测试。</p></details>
       <details class="reveal"><summary>导出的是什么？</summary>
@@ -438,11 +485,29 @@
     <aside class="footnote reveal">
       <h4>数字口径说明</h4>
       <ul>
+        <li>「589 句 → 47 条钩子候选 → 12 组内容方案」是一次实测样本，结果随素材变化。</li>
         <li>「1217 句 / 约 1 万字」来自一期 43 分钟的访谈。</li>
         <li>「约 10 倍实时 / 136 秒」来自另一条 22.6 分钟的素材，NVIDIA 显卡。<b>与上一条不是同一场测试。</b></li>
         <li>音频增强链的指标（背景 +8dB / 人声 −0.3dB）是<b>开启增强链时</b>的门槛；默认路径是原声直通，不跑这条链。</li>
+        <li>「高传播特征学习」来自你主动投喂的对标样片与内置方法库；<b>不做全网平台爬取</b>（登录墙与反爬之外，也拿不到可复算的数据）。</li>
       </ul>
     </aside>
+  </div>
+</section>
+
+<!-- ═══════════════ 收尾 ═══════════════ -->
+<section class="band band-alt" id="finale">
+  <div class="wrap finale">
+    <h2 class="reveal">下一代视频创作，<br><span class="grad">不再从空白时间线开始</span></h2>
+    <p class="lede reveal">AI 先完成理解、筛选与成片，创作者直接进入判断、调整与发布。<br>
+    开剪，让创作从「做第一版」，变成<b>「选择最好的一版」</b>。</p>
+    <div class="cta reveal">
+      <a class="btn btn-primary btn-lg js-download" href="#download">
+        <svg viewBox="0 0 16 16" class="ico" aria-hidden="true"><path d="M8 1v9m0 0 3.4-3.4M8 10 4.6 6.6M2 12.5v1A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5v-1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        下载 Windows 版
+      </a>
+      <a class="btn btn-ghost" href="#demo">先摸摸演示</a>
+    </div>
   </div>
 </section>
 </main>
@@ -452,9 +517,9 @@
     <div>
       <a class="brand" href="#top">
         <svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect x="3" y="3" width="58" height="58" rx="15" fill="url(#g-mark)"/><path d="M22 15 L49 31.5 L34.5 34.5 Z" fill="#fff"/><path d="M22 49 L36.5 36.5 L49 33.2 Z" fill="#fff" opacity=".92"/></svg>
-        <span class="brand-text"><b>开剪</b><i>访谈剪辑台</i></span>
+        <span class="brand-text"><b>开剪</b><i>AI 剪辑台</i></span>
       </a>
-      <p class="foot-note">一个人做的工具，先给做访谈的人用。有问题直接提，我改。</p>
+      <p class="foot-note">先为访谈场景深度打磨，播客、课程、会议同样适用。有问题直接提，我改。</p>
     </div>
     <nav class="foot-links" aria-label="页脚导航">
       <a href="#download">下载</a>
