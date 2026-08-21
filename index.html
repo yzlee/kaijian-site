@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>快剪辑 · 专为访谈视频设计的 AI 剪辑台</title>
+<meta name="description" content="一场 40 分钟的访谈，剪成一条能被看完的片子。本地转写到词级时间戳，AI 逐句评级、抽钩子、按问答块排结构；导出按帧对齐，画面里永远有完整的人。">
+<meta name="theme-color" content="#0F0E13">
+<link rel="icon" href="./assets/app-icon.png" type="image/png">
+<link rel="apple-touch-icon" href="./assets/app-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="快剪辑 · 专为访谈视频设计的 AI 剪辑台">
+<meta property="og:description" content="转写到词级、逐句评级、钩子前置、问答块不拆散、帧对齐导出。视频不出你的硬盘。">
+<!-- OG 抓取器不解析相对路径；绑定自有域名后把这里换成正式域名 -->
+<meta property="og:image" content="https://yzlee.github.io/kuaijianji-site/assets/og.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://github.com">
+<link rel="stylesheet" href="./styles.css">
+<!-- 发布配置单独一个文件：CSP 里就不用给 script 开 'unsafe-inline'，改链接也不用动 HTML -->
+<script src="./config.js"></script>
+</head>
+<body>
+<svg class="sprite" aria-hidden="true" focusable="false"><defs>
+<g id="i-mic"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3.5M8.5 21.5h7"/></g>
+<g id="i-rate"><path d="M4 20V10M9.3 20V4M14.6 20v-7M20 20v-4"/></g>
+<g id="i-hook"><path d="M16 3.2v9.4a5.2 5.2 0 1 1-10.4 0v-.8M16 3.2 13.4 5.8M16 3.2l2.6 2.6"/></g>
+<g id="i-block"><rect x="2.5" y="3.5" width="12" height="8" rx="2"/><rect x="9.5" y="12.5" width="12" height="8" rx="2"/></g>
+<g id="i-scissors"><circle cx="6" cy="18" r="2.6"/><circle cx="6" cy="6" r="2.6"/><path d="M8.2 7.6 20 18.5M8.2 16.4 20 5.5"/></g>
+<g id="i-face"><rect x="2.5" y="3.5" width="19" height="17" rx="2.5"/><circle cx="12" cy="10" r="2.8"/><path d="M7 19.5c0-3 2.2-4.9 5-4.9s5 1.9 5 4.9"/></g>
+<g id="i-film"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="M8 4.5v15M16 4.5v15M2.5 12h19"/></g>
+<g id="i-cc"><rect x="2.5" y="4.5" width="19" height="15" rx="3"/><path d="M10.2 10.4a2.7 2.7 0 1 0 0 3.4M17.6 10.4a2.7 2.7 0 1 0 0 3.4"/></g>
+<g id="i-trend"><path d="M3 20.5h18"/><path d="m4.5 16.5 5.5-6 3.6 3.4L20 6.5M15.6 6.5H20V11"/></g>
+<g id="i-doc"><path d="M13.5 2.5H7a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M13.5 2.5V8H19M8.5 13h7M8.5 17h5"/></g>
+<g id="i-people"><circle cx="8.5" cy="8" r="3"/><path d="M2.8 19.4c0-3.5 2.5-5.6 5.7-5.6s5.7 2.1 5.7 5.6"/><path d="M16.2 5.6a3 3 0 0 1 0 5.4M17.6 14.1c2.3.5 3.6 2.4 3.6 5.3"/></g>
+<g id="i-clap"><path d="M2.5 9.5h19v10a2 2 0 0 1-2 2h-15a2 2 0 0 1-2-2z"/><path d="m3.1 9.5.9-3.9 17.1 2.1-.5 3.6"/><path d="m8.4 6.2 1.5 3.3M14.2 7.1l1.5 3.3"/></g>
+</defs></svg>
+<div class="grain" aria-hidden="true"></div>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<a class="skip" href="#main">跳到正文</a>
+
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top" aria-label="快剪辑 首页">
+      <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+        <defs>
+          <linearGradient id="g-mark" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#A363FF"/><stop offset="1" stop-color="#7422E0"/>
+          </linearGradient>
+        </defs>
+        <rect x="3" y="3" width="58" height="58" rx="15" fill="url(#g-mark)"/>
+        <path d="M22 15 L49 31.5 L34.5 34.5 Z" fill="#fff"/>
+        <path d="M22 49 L36.5 36.5 L49 33.2 Z" fill="#fff" opacity=".92"/>
+      </svg>
+      <span class="brand-text"><b>快剪辑</b><i>访谈剪辑台</i></span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="#why">为什么</a>
+      <a href="#features">能力</a>
+      <a href="#flow">工作流</a>
+      <a href="#demo">演示</a>
+      <a href="#trust">工程</a>
+      <a href="#faq">问答</a>
+    </nav>
+    <a class="btn btn-primary btn-sm js-download" href="#download">下载 Windows 版</a>
+  </div>
+  <div class="nav-progress" id="navProgress" aria-hidden="true"></div>
+</header>
+
+<main id="main">
+<a id="top"></a>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow reveal"><span class="dot"></span>专为访谈视频设计，不是通用剪辑器</p>
+    <h1 class="reveal">
+      一场 40 分钟的访谈，<br>
+      剪成一条<span class="grad">能被看完</span>的片子
+    </h1>
+    <p class="lede reveal">
+      本地转写到<b>词级时间戳</b>，AI 逐句评级、抽钩子、按<b>问答块</b>排结构，你只做拍板。
+      导出按帧对齐，画面里永远有一个完整的人。
+    </p>
+    <div class="cta reveal">
+      <a class="btn btn-primary js-download" href="#download">
+        <svg viewBox="0 0 16 16" class="ico" aria-hidden="true"><path d="M8 1v9m0 0 3.4-3.4M8 10 4.6 6.6M2 12.5v1A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5v-1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        下载 Windows 版
+      </a>
+      <a class="btn btn-ghost" href="#demo">看它怎么工作</a>
+    </div>
+    <p class="hero-meta reveal">
+      <span>Windows 10 / 11</span><span>视频不上传，全程在你硬盘上</span><span>需自备 AI Key（Claude 或 OpenAI 兼容）</span>
+    </p>
+  </div>
+
+  <!-- 界面示意：按真实布局手绘，不是截图（真实项目里是别人的访谈内容） -->
+  <div class="wrap wrap-wide">
+    <figure class="shot reveal" id="shot">
+      <div class="shot-glow" aria-hidden="true"></div>
+      <div class="app" role="img" aria-label="剪辑台界面示意：左侧逐句转写稿，中间播放器与时间线，右侧 AI 面板">
+        <div class="app-top">
+          <span class="app-title"><span class="app-dot"></span>快剪辑 · OPC-09 上线复盘</span>
+          <span class="app-tools"><b>视图</b><b>设置</b><b class="on">① 分析</b><b class="on">② 成片</b></span>
+        </div>
+        <div class="app-body">
+          <!-- 左：逐句转写稿 -->
+          <div class="pane pane-script">
+            <div class="pane-head">逐句转写稿 <em id="mkCount">1217 句</em></div>
+            <ul class="script" id="mkScript"></ul>
+          </div>
+
+          <!-- 中：播放器 + 时间线 -->
+          <div class="pane pane-stage">
+            <div class="player">
+              <div class="frame" id="mkFrame">
+                <svg class="silhouette" viewBox="0 0 320 180" aria-hidden="true">
+                  <defs>
+                    <radialGradient id="g-room" cx="50%" cy="35%" r="75%">
+                      <stop offset="0" stop-color="#3A2E52"/><stop offset="1" stop-color="#141018"/>
+                    </radialGradient>
+                    <linearGradient id="g-body" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="#B79BE8"/><stop offset="1" stop-color="#6B4FA8"/>
+                    </linearGradient>
+                  </defs>
+                  <rect width="320" height="180" fill="url(#g-room)"/>
+                  <circle cx="205" cy="34" r="10" fill="#8B3DFF" opacity=".28"/>
+                  <rect x="30" y="120" width="52" height="60" rx="4" fill="#241C31" opacity=".7"/>
+                  <g fill="url(#g-body)">
+                    <circle cx="160" cy="68" r="25"/>
+                    <path d="M112 180c0-29 21-45 48-45s48 16 48 45z"/>
+                  </g>
+                </svg>
+                <div class="safe" aria-hidden="true"><span>头部安全区</span></div>
+                <div class="sub" id="mkSub">这件事情，我一开始就觉得是不存在的</div>
+              </div>
+              <div class="transport">
+                <span class="tc" id="mkTc">00:00:12.480</span>
+                <span class="keys"><b>⎵</b> 播放 / 暂停<b>←</b><b>→</b> ±100ms</span>
+                <span class="ratio">16:9</span>
+              </div>
+            </div>
+            <div class="timeline">
+              <div class="ruler" id="mkRuler"></div>
+              <div class="track track-v" id="mkTrackV"><div class="playhead" id="mkHead"></div></div>
+              <div class="track track-s" id="mkTrackS"></div>
+            </div>
+          </div>
+
+          <!-- 右：AI 面板 -->
+          <div class="pane pane-ai">
+            <div class="pane-head">AI 面板</div>
+            <div class="ai-card">
+              <div class="ai-line"><b>钩子池</b><em>已确认 3 / 12 组</em></div>
+              <div class="bar"><i style="width:62%"></i></div>
+            </div>
+            <div class="hook" data-k="viral"><span class="tag t-viral">可能爆</span>「我这个月是上个月的两倍」<em>信息缺口 7 · 自足 9</em></div>
+            <div class="hook" data-k="good"><span class="tag t-good">有意思</span>「第一条做教程就爆了」<em>反差 6 · 自足 8</em></div>
+            <div class="hook" data-k="good"><span class="tag t-good">有意思</span>「只要做就火」<em>0.9 秒 / 5 个字，仍是主张</em></div>
+            <div class="ai-msg">
+              <p>已按问答块排出 10 段：首段是你确认的钩子组，第 2、3 段由主持问句开启，末段落到产品结论。</p>
+              <p class="ai-you">再紧凑 20 秒，把讲定价的部分加进来</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <figcaption class="shot-cap">界面示意图，按真实布局与配色绘制；示例文本为演示数据。</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ═══════════════ 为什么 ═══════════════ -->
+<section class="band" id="why">
+  <div class="wrap">
+    <h2 class="reveal">通用剪辑软件不是不好，<span class="grad">是它不认识访谈</span></h2>
+    <p class="sub reveal">同样的三件事，剪映、Premiere 交给你的眼睛和耳朵；这里交给可计算的判据。</p>
+    <div class="vs">
+      <article class="vs-row reveal">
+        <div class="vs-a"><span class="vs-k">通用剪辑器</span><p>给你一条 40 分钟的波形，从哪儿下刀全靠你反复拉。</p></div>
+        <div class="vs-arrow" aria-hidden="true">→</div>
+        <div class="vs-b"><span class="vs-k">快剪辑</span><p>转写切成<b>问答块</b>——主持人的问句串 + 嘉宾的连续回答＝一块。压时长时<b>删整块</b>，不会剪出答非所问。</p></div>
+      </article>
+      <article class="vs-row reveal">
+        <div class="vs-a"><span class="vs-k">通用剪辑器</span><p>它不知道哪一句有人想看，你只能自己听三遍。</p></div>
+        <div class="vs-arrow" aria-hidden="true">→</div>
+        <div class="vs-b"><span class="vs-k">快剪辑</span><p>每句一个评级 <span class="tag t-viral">可能爆</span> <span class="tag t-good">有意思</span> <span class="tag t-mid">一般</span> <span class="tag t-dim">无聊</span>，外加一句理由：哪一维拉高、哪一维拖后腿。分数只用来排序，<b>不替你判决</b>。</p></div>
+      </article>
+      <article class="vs-row reveal">
+        <div class="vs-a"><span class="vs-k">通用剪辑器</span><p>竖屏裁剪靠肉眼盯，一不留神导出一片没有头顶的脸。</p></div>
+        <div class="vs-arrow" aria-hidden="true">→</div>
+        <div class="vs-b"><span class="vs-k">快剪辑</span><p>竖屏默认<b>头部安全</b>顶部对齐，预览与导出同一套公式；导出前还有一道硬校验，构图违规<b>直接拦下不给导</b>。</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 能力 ═══════════════ -->
+<section class="band band-alt" id="features">
+  <div class="wrap">
+    <h2 class="reveal">从素材到成片，<span class="grad">每一步都为访谈重做过</span></h2>
+    <div class="grid" id="featGrid">
+      <article class="card reveal">
+        <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mic"/></svg></span>
+        <h3>本地转写 · 词级时间戳</h3>
+        <p>faster-whisper 跑在你自己的机器上，默认 large-v3；有 NVIDIA 显卡自动走 GPU。词级时间戳意味着<b>一句话可以只留半句</b>。</p>
+      </article>
+      <article class="card reveal">
+        <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-rate"/></svg></span>
+        <h3>逐句评级 + 理由</h3>
+        <p>四档评级配一句人话说明，可按档筛选。理由是确定性生成的，不是模型随口一说。</p>
+      </article>
+      <article class="card reveal">
+        <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-hook"/></svg></span>
+        <h3>钩子按组确认</h3>
+        <p>一个钩子＝主句 + 垫话 + 后续句，整组一起确认。你确认的钩子排在成片最前，正片里还可以再出现一次做回扣。</p>
+      </article>
+      <article class="card reveal">
+        <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-block"/></svg></span>
+        <h3>问答块是最小单位</h3>
+        <p>结构先于价值：先切出「问 + 答」，再决定哪些块进片。段内守逻辑，段间抢留存。</p>
+      </article>
+      <article class="card reveal">
+        <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-scissors"/></svg></span>
+        <h3>语气词自动掐掉</h3>
+        <p>嗯 / 啊 / 呃 自动标上删除线。切缝只吃静音不吃字，接缝处 20ms 淡入淡出防爆音。</p>
+      </article>
+      <article class="card reveal">
+        <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-face"/></svg></span>
+        <h3>访谈构图硬约束</h3>
+        <p>每个画面必须有人物，头部不能被大面积裁掉。16:9 / 9:16 / 1:1 之间换比例时自动顶部对齐，导出前硬校验。</p>
+      </article>
+      <article class="card reveal">
+        <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-film"/></svg></span>
+        <h3>帧对齐导出</h3>
+        <p>每段吸到帧格，音视频同一时长，字幕与音乐跟着重映射。<b>默认原色原声直通</b>——不替你调色、不替你美化人声。</p>
+      </article>
+      <article class="card reveal">
+        <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cc"/></svg></span>
+        <h3>字幕四个入口都能改</h3>
+        <p>转写稿里改、时间线字幕轨上改、整句纠正、半句覆盖——粗剪之后照样改得动。</p>
+      </article>
+      <article class="card reveal">
+        <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trend"/></svg></span>
+        <h3>越剪越准</h3>
+        <p>你每一次「留这句、删那句」都进口味档案，下一期作为方法层规则注入 AI 的判断。规则要连续两期被印证才生效，失效自动降级。</p>
+      </article>
+      <article class="card reveal">
+        <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-doc"/></svg></span>
+        <h3>中文剪辑执行稿</h3>
+        <p>导出一份 PDF：每句带时间码和说话人，附标题建议与关键词。交给助理也能照着剪。</p>
+      </article>
+      <article class="card reveal">
+        <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-people"/></svg></span>
+        <h3>说话人分离与人工终审</h3>
+        <p>主持人 / 嘉宾自动区分，现场第三人也认得出。你手动改过的标注是终审，重新分析不会被模型改回去。</p>
+      </article>
+      <article class="card reveal">
+        <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-clap"/></svg></span>
+        <h3>对标样片可以学</h3>
+        <p>拖进来一条你想学的片子，它会拆出切换节奏、每句时长、响度基线，作为方法注入下一次分析。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 工作流 ═══════════════ -->
+<section class="band" id="flow">
+  <div class="wrap">
+    <h2 class="reveal">五步，<span class="grad">你只在第 4 步做决定</span></h2>
+    <ol class="steps">
+      <li class="reveal"><span class="n">1</span><h3>导入素材</h3><p>多机位一起拖进来。相机的 LRV 低清代理自动识别用于预览，不用转码；HEVC 播不动会提示一键生成 540p 代理。</p></li>
+      <li class="reveal"><span class="n">2</span><h3>本地转写</h3><p>句级 + 词级时间戳落盘，说话人分离，语气词标记。这一步不联网。</p></li>
+      <li class="reveal"><span class="n">3</span><h3>AI 通读全文</h3><p>逐句评级、抽钩子候选、拟标题、排出问答块骨架，并写清剪辑思路。断点可续跑。</p></li>
+      <li class="reveal"><span class="n">4</span><h3>拍板与对话调整</h3><p>确认钩子组、勾选句子；右侧直接说「再紧凑 20 秒」「把讲定价的部分加进来」，时间线实时改。</p></li>
+      <li class="reveal"><span class="n">5</span><h3>导出成片</h3><p>从原片按帧精确切割拼接，可选 9:16 竖版。同时导出剪辑执行稿 PDF 与字幕。</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ═══════════════ 交互演示 ═══════════════ -->
+<section class="band band-alt" id="demo">
+  <div class="wrap">
+    <h2 class="reveal">上手摸一下<span class="grad">（演示数据，可点）</span></h2>
+    <p class="sub reveal">下面三块是真实功能的等比复刻，用的是编的示例句子——真实项目里是别人的访谈内容，不适合放在公开页面上。</p>
+
+    <div class="tabs reveal" role="tablist" aria-label="功能演示">
+      <button role="tab" aria-selected="true" aria-controls="p-rate" id="t-rate">逐句评级</button>
+      <button role="tab" aria-selected="false" aria-controls="p-crop" id="t-crop">构图安全</button>
+      <button role="tab" aria-selected="false" aria-controls="p-hook" id="t-hook">钩子前置</button>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p-rate" aria-labelledby="t-rate">
+      <div class="panel-split">
+        <ul class="demo-script" id="demoScript"></ul>
+        <aside class="demo-detail" id="demoDetail"></aside>
+      </div>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p-crop" aria-labelledby="t-crop" hidden>
+      <div class="panel-split">
+        <div class="crop-stage">
+          <div class="crop-frame" id="cropFrame">
+            <svg class="silhouette" viewBox="0 0 320 180" aria-hidden="true">
+              <rect width="320" height="180" fill="#1B1626"/>
+              <g fill="url(#g-body)" opacity=".95">
+                <circle cx="160" cy="58" r="28"/>
+                <path d="M106 180c0-32 24-50 54-50s54 18 54 50z"/>
+              </g>
+            </svg>
+            <div class="crop-box" id="cropBox"><span class="crop-label" id="cropLabel">9:16</span></div>
+            <div class="crop-guide" id="cropGuide"></div>
+          </div>
+          <div class="seg" role="group" aria-label="导出比例">
+            <button class="on" data-ratio="16:9">16:9</button>
+            <button data-ratio="9:16">9:16</button>
+            <button data-ratio="1:1">1:1</button>
+            <button data-ratio="bad">故意剪掉头顶</button>
+          </div>
+        </div>
+        <aside class="demo-detail" id="cropDetail"></aside>
+      </div>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p-hook" aria-labelledby="t-hook" hidden>
+      <div class="panel-split">
+        <div>
+          <p class="hint">点「确认这组」——被确认的钩子组会立刻排到成片最前面。</p>
+          <div id="hookList"></div>
+        </div>
+        <aside class="demo-detail">
+          <h4>成片段序</h4>
+          <ol class="ring-list" id="ringList"></ol>
+          <p class="note">钩子组＝主句 + 垫话 + 后续句，整组一起走，不会只搬走一句造成上下文断裂。</p>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 工程纪律 ═══════════════ -->
+<section class="band" id="trust">
+  <div class="wrap">
+    <h2 class="reveal">上面每条主张，<span class="grad">背后都有一道能复跑的门禁</span></h2>
+    <p class="sub reveal">不是「我们很用心」，是改坏了会当场变红的脚本。它们跟着源码一起走。</p>
+    <div class="gates">
+      <div class="gate reveal"><code>verify-cut-seams</code><span>切缝只吃静音，自然停顿不被吃光</span></div>
+      <div class="gate reveal"><code>verify-cut-leak</code><span>已删的句子一个字都不许漏进成片</span></div>
+      <div class="gate reveal"><code>verify-hook-chain</code><span>钩子从候选到成片的六条硬指标不许退</span></div>
+      <div class="gate reveal"><code>verify-audio-chain</code><span>增强链背景干净 ≥ +8dB 且人声被削 ≤ 0.3dB</span></div>
+      <div class="gate reveal"><code>verify-export-color</code><span>导出色彩标签照抄源片，不偷偷调色</span></div>
+      <div class="gate reveal"><code>verify-framing</code><span>构图硬约束，违规不给导出</span></div>
+      <div class="gate reveal"><code>verify-theme-contrast</code><span>界面前景色按最坏背景反解，不靠肉眼估</span></div>
+      <div class="gate reveal"><code>measure-taste-lift</code><span>口味学习只许变好，退步就红</span></div>
+    </div>
+
+    <div class="privacy reveal">
+      <h3>你的素材去哪了</h3>
+      <ol>
+        <li><b>访谈原片、代理、成片：只在你自己的硬盘上。</b>没有上传，没有云端转码。</li>
+        <li><b>送去 AI 的是转写出来的文字</b>，发给<i>你自己配置的</i>服务商（Claude 订阅 / API Key，或任意 OpenAI 兼容接口）。不配 Key 就只有转写和手动剪辑可用。</li>
+        <li><b>只有你主动拖进来的「对标参考片」</b>会抽帧交给视觉模型拆解节奏。不用这个功能就完全不发生。</li>
+      </ol>
+      <p class="note">API Key 在本地 AES-256-GCM 加密存放，设置文件与日志里不出现明文。诚实边界：同一台机器上同时拿到密文和密钥文件仍可解密，这不等同于系统钥匙串。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 下载 ═══════════════ -->
+<section class="band band-alt" id="download">
+  <div class="wrap">
+    <div class="dl reveal">
+      <div class="dl-main">
+        <p class="eyebrow"><span class="dot"></span><span id="dlChannel">内测版 v0.1.0</span></p>
+        <h2>装上，把这一期先剪出来</h2>
+        <p class="lede">安装包 <b id="dlSize">约 90 MB</b>；首次运行会按需下载转写引擎与模型（<b id="dlRuntime">约 2–3 GB</b>），全部装在程序目录里，不往系统里塞东西。</p>
+        <div class="cta">
+          <a class="btn btn-primary btn-lg js-download" href="#">
+            <svg viewBox="0 0 16 16" class="ico" aria-hidden="true"><path d="M8 1v9m0 0 3.4-3.4M8 10 4.6 6.6M2 12.5v1A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5v-1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>下载 Windows 版</span>
+          </a>
+          <a class="btn btn-ghost js-mirror" href="#" hidden>国内加速下载</a>
+        </div>
+        <p class="dl-note js-dl-pending">首个安装包正在打包，链接稍后放出。</p>
+        <ol class="dl-steps">
+          <li>下载后双击安装（未做代码签名，Windows 会提示「更多信息 → 仍要运行」）</li>
+          <li>首次启动等它把转写引擎装好</li>
+          <li>桌面出现「快剪辑」，以后双击就开</li>
+        </ol>
+      </div>
+      <div class="dl-side">
+        <h3>系统要求</h3>
+        <dl>
+          <dt>系统</dt><dd>Windows 10 / 11（64 位）</dd>
+          <dt>显卡</dt><dd>NVIDIA 显卡走 GPU 转写，快很多；没有也能跑，走 CPU 慢一些</dd>
+          <dt>硬盘</dt><dd>建议 20 GB 以上可用空间（模型 + 代理 + 导出）</dd>
+          <dt>素材</dt><dd>mp4 / mov / m4v / mkv / avi / mts，相机 LRV 代理自动识别</dd>
+          <dt>AI</dt><dd>需自备 Claude 订阅或 API Key，也可填任意 OpenAI 兼容接口</dd>
+          <dt>macOS</dt><dd>源码里有安装脚本可跑，但没有持续验证，暂不作为发行版本</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FAQ ═══════════════ -->
+<section class="band" id="faq">
+  <div class="wrap">
+    <h2 class="reveal">常见问题</h2>
+    <div class="faq">
+      <details class="reveal"><summary>能不能不装软件，直接在网页上用？</summary>
+        <p>界面本来就是网页——但引擎（转写、ffmpeg 切割、导出）跑在你自己的机器上，所以还是得装。
+        做成纯云端要把几十 GB 的 4K 原片传上去，按国内的上行带宽，光上传就比剪辑本身久，服务器算力也要有人付钱。
+        眼下更现实的中间路线是「云端只处理文字」：上传音频出一份带时间码的剪辑执行稿，你拿回本地套用——如果你需要，我可以做。</p></details>
+      <details class="reveal"><summary>要花多少钱？</summary>
+        <p>工具本身免费。AI 部分用你自己的 Key，按你和服务商之间的计费走；不填 Key 也能用转写和手动剪辑，只是没有评级和自动成片。</p></details>
+      <details class="reveal"><summary>必须有显卡吗？</summary>
+        <p>不是必须。有 NVIDIA 显卡时转写走 GPU，快得多；没有则回落到 CPU，同样能出结果，只是要等。导出同理，检测到硬件编码器就用。</p></details>
+      <details class="reveal"><summary>我的访谈内容会被拿去训练吗？</summary>
+        <p>视频不出你的硬盘。文字转写发给的是你自己配置的模型服务商，是否用于训练取决于你和他们的协议（Claude、OpenAI 的 API 通道默认都不拿来训练）。这一层的选择权在你手上。</p></details>
+      <details class="reveal"><summary>支持多长的素材？</summary>
+        <p>按小时级的访谈设计。举个有前提的数字：一期 43 分钟的访谈转写出 1217 句、约 1 万字，逐句都能点选。</p></details>
+      <details class="reveal"><summary>转写要等多久？</summary>
+        <p>另一条 22.6 分钟的素材在带 GPU 的机器上跑了 136 秒，约 10 倍实时。这两个数字来自不同素材、不同机器，别当成同一场测试。</p></details>
+      <details class="reveal"><summary>导出的是什么？</summary>
+        <p>横版成片（可选 9:16 竖版）、字幕文件、中文剪辑执行稿 PDF。默认原色原声直通：不替你调色，也不替你「美化」人声，需要时才开增强链。</p></details>
+      <details class="reveal"><summary>支持英文访谈吗？</summary>
+        <p>转写引擎本身多语言，界面和剪辑方法论目前是按中文访谈打磨的。英文能跑，但钩子判据、标题规则这些还没在英文素材上校准过。</p></details>
+    </div>
+
+    <aside class="footnote reveal">
+      <h4>数字口径说明</h4>
+      <ul>
+        <li>「1217 句 / 约 1 万字」来自一期 43 分钟的访谈。</li>
+        <li>「约 10 倍实时 / 136 秒」来自另一条 22.6 分钟的素材，NVIDIA 显卡。<b>与上一条不是同一场测试。</b></li>
+        <li>音频增强链的指标（背景 +8dB / 人声 −0.3dB）是<b>开启增强链时</b>的门槛；默认路径是原声直通，不跑这条链。</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div>
+      <a class="brand" href="#top">
+        <svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect x="3" y="3" width="58" height="58" rx="15" fill="url(#g-mark)"/><path d="M22 15 L49 31.5 L34.5 34.5 Z" fill="#fff"/><path d="M22 49 L36.5 36.5 L49 33.2 Z" fill="#fff" opacity=".92"/></svg>
+        <span class="brand-text"><b>快剪辑</b><i>访谈剪辑台</i></span>
+      </a>
+      <p class="foot-note">一个人做的工具，先给做访谈的人用。有问题直接提，我改。</p>
+    </div>
+    <nav class="foot-links" aria-label="页脚导航">
+      <a href="#download">下载</a>
+      <a href="#faq">常见问题</a>
+      <a class="js-repo" href="#" hidden>源码</a>
+      <a class="js-contact" href="#" hidden>联系</a>
+    </nav>
+  </div>
+  <p class="copy">© <span id="year">2026</span> 快剪辑 · 视频与音频处理由 FFmpeg 完成，转写由 faster-whisper 完成。</p>
+</footer>
+
+<script src="./app.js"></script>
+</body>
+</html>
