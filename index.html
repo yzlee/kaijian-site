@@ -360,7 +360,8 @@
       <h3>你的素材去哪了</h3>
       <ol>
         <li><b>访谈原片、代理、成片：只在你自己的硬盘上。</b>没有上传，没有云端转码。</li>
-        <li><b>送去 AI 的是转写出来的文字</b>，发给<i>你自己配置的</i>服务商（Claude 订阅 / API Key，或任意 OpenAI 兼容接口）。不配 Key 就只有转写和手动剪辑可用。</li>
+        <li><b>转写默认在本地跑</b>，音频也不出机器。选「云端转写」模式时，把<b>音频</b>（不是视频）传给你自己填的 whisper 接口（OpenAI / Groq / 中转站），随时可切回本地。</li>
+        <li><b>送去 AI 分析的是转写出来的文字</b>，发给<i>你自己配置的</i>服务商（Claude 订阅 / API Key，或任意 OpenAI 兼容接口——DeepSeek、通义、智谱、Kimi 都行）。不配 Key 就只有转写和手动剪辑可用。</li>
         <li><b>只有你主动拖进来的「对标参考片」</b>会抽帧交给视觉模型拆解节奏。不用这个功能就完全不发生。</li>
       </ol>
       <p class="note">API Key 在本地 AES-256-GCM 加密存放，设置文件与日志里不出现明文。诚实边界：同一台机器上同时拿到密文和密钥文件仍可解密，这不等同于系统钥匙串。</p>
@@ -375,7 +376,7 @@
       <div class="dl-main">
         <p class="eyebrow"><span class="dot"></span><span id="dlChannel">内测版 v0.1.0</span></p>
         <h2>装上，把这一期先剪出来</h2>
-        <p class="lede">安装包 <b id="dlSize">约 90 MB</b>；首次运行会按需下载转写引擎与模型（<b id="dlRuntime">约 2–3 GB</b>），全部装在程序目录里，不往系统里塞东西。</p>
+        <p class="lede">安装包 <b id="dlSize">约 90 MB</b>。转写引擎二选一：<b>云端转写</b>填个 API Key 就能开剪（只再下约 80 MB）；<b>本地转写</b>下载引擎与模型（约 2–3 GB），音频一个字节不出机器。装完随时可切换。</p>
         <div class="cta">
           <a class="btn btn-primary btn-lg js-download" href="#">
             <svg viewBox="0 0 16 16" class="ico" aria-hidden="true"><path d="M8 1v9m0 0 3.4-3.4M8 10 4.6 6.6M2 12.5v1A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5v-1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -394,10 +395,10 @@
         <h3>系统要求</h3>
         <dl>
           <dt>系统</dt><dd>Windows 10 / 11（64 位）</dd>
-          <dt>显卡</dt><dd>NVIDIA 显卡走 GPU 转写，快很多；没有也能跑，走 CPU 慢一些</dd>
+          <dt>显卡</dt><dd>本地转写：NVIDIA 走 GPU 快很多，无卡走 CPU；云端转写模式不需要显卡</dd>
           <dt>硬盘</dt><dd>建议 20 GB 以上可用空间（模型 + 代理 + 导出）</dd>
           <dt>素材</dt><dd>mp4 / mov / m4v / mkv / avi / mts，相机 LRV 代理自动识别</dd>
-          <dt>AI</dt><dd>需自备 Claude 订阅或 API Key，也可填任意 OpenAI 兼容接口</dd>
+          <dt>AI</dt><dd>需自备 Key：Claude 订阅或任意 OpenAI 兼容接口（DeepSeek / 通义 / 智谱 / Kimi / 中转站均可）</dd>
           <dt>macOS</dt><dd>源码里有安装脚本可跑，但没有持续验证，暂不作为发行版本</dd>
         </dl>
       </div>
@@ -417,7 +418,7 @@
       <details class="reveal"><summary>要花多少钱？</summary>
         <p>工具本身免费。AI 部分用你自己的 Key，按你和服务商之间的计费走；不填 Key 也能用转写和手动剪辑，只是没有评级和自动成片。</p></details>
       <details class="reveal"><summary>必须有显卡吗？</summary>
-        <p>不是必须。有 NVIDIA 显卡时转写走 GPU，快得多；没有则回落到 CPU，同样能出结果，只是要等。导出同理，检测到硬件编码器就用。</p></details>
+        <p>不是必须。本地转写有 NVIDIA 显卡走 GPU 快得多，没有则回落 CPU；或者直接选<b>云端转写</b>模式——连本地引擎都不用装，无显卡的机器反而更快。导出同理，检测到硬件编码器就用。</p></details>
       <details class="reveal"><summary>我的访谈内容会被拿去训练吗？</summary>
         <p>视频不出你的硬盘。文字转写发给的是你自己配置的模型服务商，是否用于训练取决于你和他们的协议（Claude、OpenAI 的 API 通道默认都不拿来训练）。这一层的选择权在你手上。</p></details>
       <details class="reveal"><summary>支持多长的素材？</summary>
