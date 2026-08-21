@@ -275,7 +275,7 @@
       <article class="card reveal">
         <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cc"/></svg></span>
         <h3>字幕与时间线联动</h3>
-        <p>词级时间码转写（一句话可只留半句）、语义级校对、嗯啊呃口语一键清理；改字幕同步作用于片段，音画不错位。</p>
+        <p>词级时间码转写（一句话可只留半句）、说话人分离与语义校对、嗯啊呃一键清理；改字幕同步作用于片段，音画不错位。</p>
       </article>
       <article class="card reveal">
         <span class="card-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trend"/></svg></span>
@@ -284,17 +284,6 @@
       </article>
     </div>
 
-    <div class="craft reveal">
-      <h3>藏在底下的工程细节</h3>
-      <ul class="craft-list">
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-face"/></svg>头部安全构图硬校验，违规直接不给导出</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-scissors"/></svg>切缝只吃静音不吃字，20ms 淡入出防爆音</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-film"/></svg>帧对齐导出，默认原色原声直通不加戏</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-people"/></svg>说话人自动分离，人工标注即终审</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-doc"/></svg>中文剪辑执行稿 PDF，每句带时间码</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-clap"/></svg>拖入对标样片，学切换节奏与句长基线</li>
-      </ul>
-    </div>
   </div>
 </section>
 
@@ -314,20 +303,6 @@
       <div class="cmp-row"><div>编辑控制</div><div>全程手工</div><div>结果后二次调整</div><div class="cmp-us">候选可试听、排序、换选并继续精修</div></div>
     </div>
     <p class="cmp-moat reveal">全片语义理解 × 钩子评分机制 × 成片编排引擎 × 偏好学习闭环</p>
-  </div>
-</section>
-
-<!-- ═══════════════ 工作流 ═══════════════ -->
-<section class="band" id="flow">
-  <div class="wrap">
-    <h2 class="reveal">五步，<span class="grad">你只在第 4 步做决定</span></h2>
-    <ol class="steps">
-      <li class="reveal"><span class="n">1</span><h3>导入素材</h3><p>多机位一起拖进来。相机的 LRV 低清代理自动识别用于预览，不用转码；HEVC 播不动会提示一键生成 540p 代理。</p></li>
-      <li class="reveal"><span class="n">2</span><h3>转写（默认本地）</h3><p>句级 + 词级时间戳落盘，说话人分离，语气词标记。默认本地跑、不联网；选云端转写时只上传音频（不上传视频），随时可切回。</p></li>
-      <li class="reveal"><span class="n">3</span><h3>AI 建立内容地图</h3><p>逐句评级、人物与观点、冲突与转折、钩子候选与结构方案，并写清为什么这样剪。断点可续跑。</p></li>
-      <li class="reveal"><span class="n">4</span><h3>拍板与对话调整</h3><p>确认钩子组、比较开场版本；右侧直接说「再紧凑 20 秒」「把讲定价的部分加进来」，时间线实时改。</p></li>
-      <li class="reveal"><span class="n">5</span><h3>导出成片</h3><p>从原片按帧精确切割拼接，可选 9:16 竖版。同时导出剪辑执行稿 PDF 与字幕。</p></li>
-    </ol>
   </div>
 </section>
 
@@ -472,10 +447,8 @@
         <p>不是必须。本地转写有 NVIDIA 显卡走 GPU 快得多，没有则回落 CPU；或者直接选<b>云端转写</b>模式——连本地引擎都不用装，无显卡的机器反而更快。导出同理，检测到硬件编码器就用。</p></details>
       <details class="reveal"><summary>我的访谈内容会被拿去训练吗？</summary>
         <p>视频不出你的硬盘。文字转写发给的是你自己配置的模型服务商，是否用于训练取决于你和他们的协议（Claude、OpenAI 的 API 通道默认都不拿来训练）。这一层的选择权在你手上。</p></details>
-      <details class="reveal"><summary>支持多长的素材？</summary>
-        <p>按小时级的长内容设计（访谈、播客、课程、会议）。举个有前提的数字：一期 43 分钟的访谈转写出 1217 句、约 1 万字，逐句都能点选。</p></details>
-      <details class="reveal"><summary>转写要等多久？</summary>
-        <p>另一条 22.6 分钟的素材在带 GPU 的机器上跑了 136 秒，约 10 倍实时。这两个数字来自不同素材、不同机器，别当成同一场测试。</p></details>
+      <details class="reveal"><summary>支持多长的素材？转写要等多久？</summary>
+        <p>按小时级的长内容设计（访谈、播客、课程、会议）。两个有前提的数字：一期 43 分钟的访谈转写出 1217 句、约 1 万字，逐句都能点选；另一条 22.6 分钟的素材在带 GPU 的机器上 136 秒转完，约 10 倍实时——两条来自不同素材、不同机器，别当成同一场测试。</p></details>
       <details class="reveal"><summary>导出的是什么？</summary>
         <p>横版成片（可选 9:16 竖版）、字幕文件、中文剪辑执行稿 PDF。默认原色原声直通：不替你调色，也不替你「美化」人声，需要时才开增强链。</p></details>
       <details class="reveal"><summary>支持英文访谈吗？</summary>

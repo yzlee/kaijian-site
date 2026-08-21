@@ -364,7 +364,7 @@ h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #F4F2F7; }
 .shot-cap { text-align: center; color: var(--faint); font-size: 13px; margin-top: 16px; }
 
 /* ── 分区 ─────────────────────────────────────────────────────────── */
-.band { padding: clamp(64px, 9vw, 116px) 0; position: relative; }
+.band { padding: clamp(52px, 7vw, 92px) 0; position: relative; }
 .band-alt { background: linear-gradient(180deg, rgba(26, 25, 33, 0), rgba(26, 25, 33, .55) 12%, rgba(26, 25, 33, .55) 88%, rgba(26, 25, 33, 0)); }
 
 /* ── 双泳道工作流（传统 vs AI）────────────────────────────────────── */
@@ -473,16 +473,6 @@ h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #F4F2F7; }
   border-left: 2px solid #3A2B54; padding-left: 12px; line-height: 1.7;
 }
 
-/* ── 工程细节条 ───────────────────────────────────────────────────── */
-.craft { margin-top: 34px; border: 1px dashed var(--border-strong); border-radius: var(--radius-lg); padding: 24px 28px; }
-.craft h3 { font-size: 14px; color: var(--faint); letter-spacing: 1.5px; margin-bottom: 16px; }
-.craft-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px 24px; }
-.craft-list li { display: flex; align-items: center; gap: 11px; color: var(--dim); font-size: 14.5px; line-height: 1.6; }
-.craft-list svg {
-  width: 18px; height: 18px; flex-shrink: 0; color: var(--accent-text);
-  fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
-}
-
 /* ── 三列对比矩阵 ─────────────────────────────────────────────────── */
 .cmp { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; background: var(--bg2); }
 .cmp-row {
@@ -535,27 +525,6 @@ h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #F4F2F7; }
 }
 .card p { color: var(--dim); font-size: 15px; line-height: 1.8; position: relative; }
 .card h3 { position: relative; }
-
-/* ── 步骤 ─────────────────────────────────────────────────────────── */
-.steps { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; counter-reset: s; }
-.steps li { position: relative; padding: 26px 20px 22px; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); }
-.steps li::after {
-  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px;
-  background: linear-gradient(90deg, var(--accent-lo), var(--accent-hi));
-  border-radius: var(--radius) var(--radius) 0 0;
-  transform: scaleX(0); transform-origin: left; transition: transform .7s var(--ease);
-}
-.steps li.in::after { transform: scaleX(1); }
-.steps li:nth-child(2).in::after { transition-delay: .1s; }
-.steps li:nth-child(3).in::after { transition-delay: .2s; }
-.steps li:nth-child(4).in::after { transition-delay: .3s; }
-.steps li:nth-child(5).in::after { transition-delay: .4s; }
-.steps .n {
-  display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px;
-  background: var(--accent-soft); color: var(--accent-text); font-weight: 700; font-size: 15px;
-  margin-bottom: 12px; border: 1px solid #3A2B54;
-}
-.steps p { color: var(--dim); font-size: 14.5px; line-height: 1.75; }
 
 /* ── 演示 ─────────────────────────────────────────────────────────── */
 .tabs { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }

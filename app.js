@@ -61,7 +61,7 @@
 
   /* ── 滚动揭示 ──────────────────────────────────────────────────── */
   function wireReveal() {
-    const items = $$('.reveal, .steps li');
+    const items = $$('.reveal');
     if (reduced || !('IntersectionObserver' in window)) {
       items.forEach((n) => n.classList.add('in'));
       return;
