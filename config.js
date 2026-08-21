@@ -11,9 +11,9 @@
 window.SITE_CONFIG = {
   version: 'v0.1.0',
   channel: '内测',
-  sizeLabel: '约 90 MB',
+  sizeLabel: '约 46 MB',
   runtimeLabel: '约 2–3 GB',
-  downloadUrl: '',
+  downloadUrl: 'https://github.com/yzlee/kaijian-site/releases/latest/download/KaiJian-Setup.exe',
   mirrorUrl: '',
   repoUrl: '',
   contact: ''
